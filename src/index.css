@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Academic color palette */
+    --background: 210 20% 98%;
+    --foreground: 213 31% 18%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 213 31% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 31% 18%;
+
+    /* Academic blues */
+    --primary: 213 94% 68%;
+    --primary-foreground: 0 0% 100%;
+    --primary-muted: 213 50% 85%;
+
+    /* Academic secondary */
+    --secondary: 210 17% 95%;
+    --secondary-foreground: 213 31% 18%;
+
+    --muted: 210 17% 95%;
+    --muted-foreground: 213 19% 46%;
+
+    /* Academic gold accent */
+    --accent: 43 74% 66%;
+    --accent-foreground: 213 31% 18%;
+    --accent-muted: 43 74% 90%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 213 27% 84%;
+    --input: 213 27% 84%;
+    --ring: 213 94% 68%;
+
+    /* Academic specific colors */
+    --highlight: 60 100% 85%;
+    --citation: 213 31% 25%;
+    --source-bg: 210 20% 99%;
+    
+    /* Gradients */
+    --gradient-academic: linear-gradient(135deg, hsl(213 94% 68%), hsl(213 94% 78%));
+    --gradient-subtle: linear-gradient(180deg, hsl(210 20% 99%), hsl(210 17% 95%));
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+}
+
+/* Debate card styling */
+.debate-card-content mark.highlight {
+  background: hsl(var(--primary) / 0.3);
+  color: hsl(var(--foreground));
+  font-weight: 600;
+  padding: 2px 4px;
+  border-radius: 3px;
+  border-left: 3px solid hsl(var(--primary));
+  display: inline-block;
+  margin: 1px 0;
+}
+
+.debate-card-content span.cut {
+  font-size: 0.75em;
+  color: hsl(var(--muted-foreground));
+  opacity: 0.5;
+  text-decoration: line-through;
+  background: hsl(var(--muted) / 0.3);
+  padding: 1px 2px;
+  border-radius: 2px;
+  display: inline-block;
+  margin: 1px 0;
+}
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
