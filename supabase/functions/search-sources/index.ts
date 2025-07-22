@@ -372,6 +372,12 @@ async function scrapeWithFirecrawl(url: string): Promise<string> {
 
     if (!response.ok) {
       console.error(`Firecrawl API error: ${response.status} ${response.statusText}`);
+      try {
+        const errorBody = await response.text();
+        console.error('Firecrawl error response body:', errorBody);
+      } catch (e) {
+        // Ignore
+      }
       console.log('Falling back to manual scraping...');
       return await scrapeArticleContent(url);
     }
@@ -380,6 +386,7 @@ async function scrapeWithFirecrawl(url: string): Promise<string> {
     
     if (!data.success) {
       console.error('Firecrawl scraping failed:', data.error);
+      console.error('Full Firecrawl response:', JSON.stringify(data, null, 2));
       console.log('Falling back to manual scraping...');
       return await scrapeArticleContent(url);
     }
@@ -448,7 +455,7 @@ async function searchWithGoogle(argument: string): Promise<TransformedResult[]> 
     }
 
     // Build search query - start simple to avoid 400 errors
-    const query = `${argument} news article research`;
+    const query = `${argument} news article research -filetype:pdf`;
     const url = `https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleSearchEngineId}&q=${encodeURIComponent(query)}&num=20`;
 
     console.log('Starting Google Custom Search with argument:', argument);
@@ -462,11 +469,21 @@ async function searchWithGoogle(argument: string): Promise<TransformedResult[]> 
       const errorText = await response.text();
       console.error('Google Custom Search API error:', response.status, response.statusText);
       console.error('Error details:', errorText);
-      
+      console.error('Google API request URL:', url);
+      try {
+        const parsed = JSON.parse(errorText);
+        if (parsed && parsed.error) {
+          console.error('Google API error object:', JSON.stringify(parsed.error, null, 2));
+        }
+      } catch (e) {
+        // Not JSON, skip
+      }
       // Try a simpler search as fallback
       console.log('Trying fallback search with simpler query...');
       const fallbackQuery = argument;
-      const fallbackUrl = `https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleSearchEngineId}&q=${encodeURIComponent(fallbackQuery)}&num=10`;
+      // Exclude PDFs in fallback as well
+      const fallbackQueryWithExclusion = `${argument} -filetype:pdf`;
+      const fallbackUrl = `https://www.googleapis.com/customsearch/v1?key=${googleApiKey}&cx=${googleSearchEngineId}&q=${encodeURIComponent(fallbackQueryWithExclusion)}&num=10`;
       
       response = await fetch(fallbackUrl);
       
@@ -474,6 +491,15 @@ async function searchWithGoogle(argument: string): Promise<TransformedResult[]> 
         const fallbackErrorText = await response.text();
         console.error('Fallback search also failed:', response.status, response.statusText);
         console.error('Fallback error details:', fallbackErrorText);
+        console.error('Fallback Google API request URL:', fallbackUrl);
+        try {
+          const parsed = JSON.parse(fallbackErrorText);
+          if (parsed && parsed.error) {
+            console.error('Fallback Google API error object:', JSON.stringify(parsed.error, null, 2));
+          }
+        } catch (e) {
+          // Not JSON, skip
+        }
         return [];
       }
     }
