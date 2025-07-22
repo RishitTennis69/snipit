@@ -87,6 +87,11 @@ export const SourceCard = ({
     if (!isCut) return;
 
     try {
+      // Format citation for rich text: bold author/year, small rest
+      const citationMatch = cardCitation.match(/^(\S+ \d{2,4})(.*)$/);
+      const richCitation = citationMatch
+        ? `<span style="font-weight:bold;">${citationMatch[1]}</span><span style="font-size:0.9em;">${citationMatch[2]}</span>`
+        : cardCitation;
       // Create plain text version
       const plainText = `
 ${cardCitation}
@@ -104,11 +109,7 @@ ${cutContent.replace(/<mark class="highlight">/g, '').replace(/<\/mark>/g, '').r
         .replace(/<\/span>/g, '</span>');
 
       const formattedCard = `
-${cardCitation}
-
-TAG: ${cardSummary}
-
-${richText}
+${richCitation}<br><br>TAG: ${cardSummary}<br><br>${richText}
       `.trim();
 
       // Try to use rich text clipboard first
