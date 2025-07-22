@@ -122,7 +122,7 @@ Notice: "Furthermore", "clearly", "significantly", and "global" were removed as 
    - Use <mark class="highlight">text</mark> for parts to keep (the cut version that supports the user's argument)
    - Use <span class="cut">text</span> for parts to cut (the removed words that don't support the user's argument)
    - AIM FOR MORE HIGHLIGHTED CONTENT: Try to keep 40% of the original passage, not just 25%
-10. Provide a brief, one-sentence TAG (not a summary) that directly states what this card proves for the user's specific argument: "${argument}". The tag should be concise, bold, and in the style of: climate change leads to extinction. Do NOT use more than one sentence. Do NOT use phrases like 'this card proves' or 'evidence for'. Just state the claim directly.
+10. Provide a TAG (not a summary) that is at most one sentence and extremely concise. The tag should be a short, direct phrase (e.g., "Climate extinction by 2030"), not a multi-sentence explanation. Do NOT use more than one sentence. Do NOT use phrases like 'this card proves' or 'evidence for'. Just state the claim directly.
 11. Create a proper citation
 
 Source Title: ${title}
