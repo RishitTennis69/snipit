@@ -239,7 +239,7 @@ ${richText}
                 }
               })()}
             </div>
-            {/* Removed Card Summary box */}
+            {/* Card Content */}
             <div
               className="text-sm leading-relaxed debate-card-content p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border"
               dangerouslySetInnerHTML={{ __html: wrapNonHighlightedWithSmall(cutContent) }}
