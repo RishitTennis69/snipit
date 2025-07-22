@@ -1,0 +1,7 @@
+project_id = "kpzrglrleaoupeejrtgy"
+
+[functions.search-sources]
+verify_jwt = false
+
+[functions.cut-card]
+verify_jwt = false
